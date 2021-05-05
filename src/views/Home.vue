@@ -75,7 +75,7 @@
             <smart-tab id="history" label="历史记录" selected>
               <history page="rest" @useHistory="onUseHistory" ref="historyComponent"></history>
             </smart-tab>
-            <smart-tab>
+            <smart-tab id="collections" label="收藏夹">
               <collections></collections>
             </smart-tab>
           </smart-tabs>

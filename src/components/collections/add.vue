@@ -34,7 +34,12 @@
 <script>
 import { ref, toRefs } from 'vue'
 import { useStore } from 'vuex';
+import SmartModal from "@/components/smart/modal";
+
 export default {
+  components: {
+    SmartModal
+  },
   props: {
     show: Boolean
   },

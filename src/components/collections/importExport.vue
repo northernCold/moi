@@ -4,7 +4,7 @@
       <div class="row-wrapper">
         <h3 class="title">导入/导出 收藏夹</h3>
         <div>
-          <v-popover>
+          <v-dropdown>
             <button class="tooltip-target icon" v-tooltip.left="'更过'">
               <svg-icon icon-class="more-vert"></svg-icon>
             </button>
@@ -16,7 +16,7 @@
                 </button>
               </div>
             </template>
-          </v-popover>
+          </v-dropdown>
           <button class="icon" @click="hideModal">
             <svg-icon icon-class="close"></svg-icon>
           </button>
@@ -56,7 +56,7 @@
         </button>
       </div>
       <div v-if="showJsonCode" class="row-wrapper">
-        <text-area v-model="collectionJson" row="8" readonly></text-area>
+        <textarea v-model="collectionJson" row="8" readonly></textarea>
       </div>
     </div>
     <div slot="footer">
@@ -74,12 +74,19 @@
 </template>
 <script>
 import { computed, ref } from 'vue'
+import SmartModal from "@/components/smart/modal";
+import SmartToggle from "@/components/smart/toggle";
+
 export default {
+  components: {
+    SmartModal,
+    SmartToggle
+  },
   props: {
     show: Boolean
   },
   emits: ["hide-modal"],
-  setup() {
+  setup(props, context) {
     let showJsonCode = ref(false);
     let collectionJson = computed(() => {
       return JSON.stringify(store.state.postwoman.collections, null, 2);

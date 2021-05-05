@@ -35,7 +35,12 @@
 <script>
 import { reactive, toRefs } from 'vue';
 import { useStore } from 'vuex';
+import SmartModal from "@/components/smart/modal";
+
 export default {
+  components: {
+    SmartModal
+  },
   props: {
     show: Boolean,
     collectionIndex: Number,

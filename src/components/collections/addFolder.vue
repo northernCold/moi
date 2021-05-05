@@ -33,7 +33,12 @@
 </template>
 <script>
 import { ref, toRefs } from 'vue'
+import SmartModal from "@/components/smart/modal";
+
 export default {
+  components: {
+    SmartModal
+  },
   props: {
     show: Boolean,
     folder: Object,
