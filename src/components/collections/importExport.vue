@@ -8,9 +8,9 @@
             <button class="tooltip-target icon" v-tooltip.left="'更过'">
               <svg-icon icon-class="more-vert"></svg-icon>
             </button>
-            <template slot="popover">
+            <template #popper>
               <div>
-                <button class="icon" @click="readCollectionGist" v-close-popover>
+                <button class="icon" @click="readCollectionGist" v-close-popper>
                   <svg-icon icon-class="assignment_returned"></svg-icon>
                   <span>从Gist导入</span>
                 </button>

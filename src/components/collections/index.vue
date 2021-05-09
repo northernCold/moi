@@ -43,9 +43,9 @@
       :show="showModalImportExport"
       @hide-modal="displayModalImportExport(false)">
     </collections-import-export>
-    <div class="border-b row-wrapper-border-brdColor">
+    <div class="border-b row-wrapper border-brdColor">
       <button class="icon" @click="displayModalAdd(true)">
-        <svg-icon class="add"></svg-icon>
+        <svg-icon icon-class="add"></svg-icon>
         <span>新建</span>
       </button>
       <button class="icon" @click="displayModalImportExport(true)">
@@ -144,11 +144,10 @@ export default {
       filterText: "",
     }));
     let collections = computed(() => store.state.postwoman.collections);
-    console.log(collections);
     let filteredCollections = computed(() => {
       const collections = store.state.postwoman.collections;
       if (!filterText.value) return collections;
-      const text = filterText.toLowerCase();
+      const text = filterText.value.toLowerCase();
       const result = [];
 
       for (let collection of collections) {
@@ -188,7 +187,7 @@ export default {
     const keyListener = e => {
       if (e.key === "Escape") {
         e.preventDefault();
-        showModalAdd = showModalEdit = showModalImportExport = showModalEdit = showModalEditRequest = false;
+        showModalAdd.value = showModalEdit = showModalImportExport = showModalEdit = showModalEditRequest = false;
       }
     }
     onMounted(() => {
@@ -199,26 +198,28 @@ export default {
     })
 
     const displayModalAdd = shouldDisplay => {
-      showModalAdd = shouldDisplay;
+      showModalAdd.value = shouldDisplay;
     }
     const displayModalEdit = showDisplay => {
-      showModalEdit = showDisplay;
+      showModalEdit.value = showDisplay;
     }
     const displayModalImportExport = shouldDisplay => {
-      showModalImportExport = shouldDisplay;
+      showModalImportExport.value = shouldDisplay;
     }
     const displayModalAddFolder = shouldDisplay => {
-      showModalAddFolder = shouldDisplay;
+      showModalAddFolder.value = shouldDisplay;
+
+      if (!shouldDisplay) resetSelectedData()
     }
     const displayModalEditFolder = shouldDisplay => {
-      showModalEditFolder = shouldDisplay;
+      showModalEditFolder.value = shouldDisplay;
     }
     const displayModalEditRequest = shouldDisplay => {
-      showModalEditRequest = shouldDisplay;
+      showModalEditRequest.value = shouldDisplay;
     }
     const editColleciton = (collection, collectionIndex) => {
-      editingCollection = collection;
-      editingCollectionIndex = collectionIndex;
+      editingCollection.value = collection;
+      editingCollectionIndex.value = collectionIndex;
       displayModalEdit(true);
     }
     const onAddFolder = ({ name, path }) => {
@@ -228,33 +229,39 @@ export default {
         path,
         flag
       })
+      displayModalAddFolder(false)
     }
+    const addFolder = payload => {
+      const { folder, path } = payload;
+      editingFolder.value = folder;
+      editingFolderPath.value = path;
+      displayModalAddFolder(true)
+    };
     const editFolder = payload => {
       const { collectionIndex, folderIndex, folderName, request, requestIndex } = payload;
-      editingCollectionIndex = collectionIndex;
-      editingFolderIndex = folderIndex;
-      editingFolderName = folderName;
-      editingRequest = request;
-      editingRequestIndex = requestIndex;
+      editingCollectionIndex.value = collectionIndex;
+      editingFolderIndex.value = folderIndex;
+      editingFolderName.value = folderName;
+      editingRequest.value = request;
+      editingRequestIndex.value = requestIndex;
     }
     const editRequest = payload => {
       const { collectionIndex, folderIndex, folderName, request, requestIndex } = payload;
-      editingCollectionIndex = collectionIndex;
-      editingFolderIndex = folderIndex;
-      editingFolderName = folderName;
-      editingRequest = request;
-      editingRequestIndex = requestIndex;
+      editingCollectionIndex.value = collectionIndex;
+      editingFolderIndex.value = folderIndex;
+      editingFolderName.value = folderName;
+      editingRequest.value = request;
+      editingRequestIndex.value = requestIndex;
       displayModalEditRequest(true);
     }
     const resetSelectedData = () => {
-      editingCollection = undefined;
-      editingCollectionIndex = undefined;
-      editingFolder = undefined;
-      editingFolderIndex = undefined;
-      editingReuqest = undefined;
-      editingRequestIndex = undefined;
+      editingCollection.value = undefined;
+      editingCollectionIndex.value = undefined;
+      editingFolder.value = undefined;
+      editingFolderIndex.value = undefined;
+      editingRequest.value = undefined;
+      editingRequestIndex.value = undefined;
     }
-    console.log(props);
     return {
       ...toRefs(props),
       showModalAdd,
@@ -282,6 +289,7 @@ export default {
       displayModalEditRequest,
       editColleciton,
       onAddFolder,
+      addFolder,
       editFolder,
       editRequest,
       resetSelectedData

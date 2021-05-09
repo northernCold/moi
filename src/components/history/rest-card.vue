@@ -39,7 +39,7 @@
               class="icon"
               @click="onUseEntry"
               aria-label="编辑"
-              v-close-popover>
+              v-close-popper>
               <svg-icon icon-class="restore"></svg-icon>
               <span>使用</span>
             </button>
@@ -50,7 +50,7 @@
               class="icon"
               @click="onDeleteEntry"
               aria-label="删除"
-              v-close-popover>
+              v-close-popper>
               <svg-icon icon-class="delete"></svg-icon>
               <span>删除</span>
             </button>

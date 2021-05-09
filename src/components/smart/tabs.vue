@@ -34,8 +34,8 @@ export default {
   },
   setup(props, context) {
     let tabs = reactive([]);
-    let currentName = ref("0");
-    const selectTab = (id) => {
+    let currentName = ref("");
+    const selectTab = ({id}) => {
       currentName.value = id;
     }
     tabs = reactive(context.slots.default().map(v => v.props));

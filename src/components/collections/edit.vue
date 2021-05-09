@@ -57,7 +57,7 @@ export default {
       }
       const collectionUpdated = {
         ...props.editingCollection,
-        name
+        name: name.value
       };
       store.commit("postwoman/editCollection", {
         collection: collectionUpdated,

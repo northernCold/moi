@@ -1,5 +1,5 @@
 .v-popper {
-  @apply w-full;
+  @apply w-auto;
   &--theme-tooltip {
     .v-popper__inner {
       min-width: auto !important;

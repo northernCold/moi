@@ -36,25 +36,25 @@
           <button class="tooltip-target icon" v-tooltip.left="'更多'">
             <svg-icon icon-class="more_vert"></svg-icon>
           </button>
-          <template slot="popover">
+          <template #popper>
             <div>
               <button
                 class="icon"
                 @click="addFolder({ folder: collection, path: `${collectionIndex}` })"
-                v-close-popover
+                v-close-popper
               >
                 <svg-icon icon-class="create_new_folder"></svg-icon>
                 <span>新文件夹</span>
               </button>
             </div>
             <div>
-              <button class="icon" @click="editCollection" v-close-popover>
+              <button class="icon" @click="editCollection" v-close-popper>
                 <svg-icon icon-class="create"></svg-icon>
                 <span>编辑</span>
               </button>
             </div>
             <div>
-              <button class="icon" @click="confirmRemove = true" v-close-popover>
+              <button class="icon" @click="confirmRemove = true" v-close-popper>
                 <svg-icon icon-class="delete"></svg-icon>
                 <span>删除</span>
               </button>
@@ -123,9 +123,16 @@
 <script>
 import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import CollectionsFolder from "./"
+import CollectionsRequest from "./request";
+import CollectionsFolder from "./folder";
+import SmartConfirmModal from "@/components/smart/confirm-modal";
 
 export default {
+  components: {
+    CollectionsRequest,
+    CollectionsFolder,
+    SmartConfirmModal
+  },
   props: {
     collectionIndex: Number,
     collection: Object,
@@ -142,7 +149,7 @@ export default {
     let confirmRemove = ref(false);
 
     const toggleShowChildren = () => {
-      showChildren = !showChildren.value;
+      showChildren.value = !showChildren.value;
     };
     const removeCollection = () => {
       store.commit("postwoman/removeCollection", {
@@ -152,7 +159,7 @@ export default {
       // to do toast
     };
     const dropEvent = ({ dataTransfer }) => {
-      dragging = !dragging.value;
+      dragging.value = !dragging.value;
       const oldCollectionIndex = dataTransfer.getData("oldCollectionIndex");
       const oldFolderIndex = dataTransfer.getData("oldFolderIndex");
       const oldFolderName = dataTransfer.getData("oldFolderName");

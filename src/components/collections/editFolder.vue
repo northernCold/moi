@@ -54,7 +54,7 @@ export default {
     const onEditFolder = () => {
       store.commit("postwoman/editFolder", {
         collectionIndex: props.collectionIndex,
-        folder: { ...props.folder, name },
+        folder: { ...props.folder, name: name.value },
         folderIndex: props.folderIndex,
         folderName: props.folder.name
       });

@@ -22,20 +22,18 @@ export default {
     watch(
       [tabs.currentName, isActive],
       () => {
-        let currentTab = tabs.tabs.find(tab => tab.id === props.id)
-        currentTab && (currentTab.isActive = isActive.value);
+        tabs.tabs.forEach(tab => {
+          tab.isActive = tab.id === tabs.currentName.value
+        })
+        isActive.value = tabs.currentName.value === props.id;
       }
     )
-    watch(
-      () => tabs.currentName,
-      () => {
-        isActive.value = tabs.currentName.value;
+    onMounted(() => {
+      isActive.value = selected.value;
+      if (selected.value) {
+        tabs.currentName.value = props.id;
       }
-    )
-    computed(() => {
-      isActive.value = tabs.currentName.value;
     })
-    onMounted(() => { isActive.value = selected.value })
     return {
       isActive,
       ...toRefs(props)
