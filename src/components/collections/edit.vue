@@ -1,34 +1,40 @@
 <template>
   <SmartModal v-if="show" @close="onHideModal">
-    <div slot="header">
-      <div class="row-wrapper">
-        <h3 class="title">编辑收藏夹</h3>
-        <div>
-          <button class="icon" @click="onHideModal">
-            <svg-icon icon-class="close"></svg-icon>
-          </button>
+    <template #header>
+      <div>
+        <div class="row-wrapper">
+          <h3 class="title">编辑收藏夹</h3>
+          <div>
+            <button class="icon" @click="onHideModal">
+              <svg-icon icon-class="close"></svg-icon>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div slot="body" class="flex flex-col">
-      <label for="selectLabel">名称</label>
-      <input
-        type="text"
-        id="selectLabel"
-        v-model="name"
-        :placeholder="editingCollection.name"
-        @keyup.enter="onSaveCollection"
-      />
-    </div>
-    <div slot="footer">
-      <div class="row-wrapper">
-        <span></span>
-        <span>
-          <button class="icon" @click="onHideModal">取消</button>
-          <button class="icon primary" @click="onSaveCollection">保存</button>
-        </span>
+    </template>
+    <template #body>
+      <div class="flex flex-col">
+        <label for="selectLabel">名称</label>
+        <input
+          type="text"
+          id="selectLabel"
+          v-model="name"
+          :placeholder="editingCollection.name"
+          @keyup.enter="onSaveCollection"
+        />
       </div>
-    </div>
+    </template>
+    <template #footer>
+      <div>
+        <div class="row-wrapper">
+          <span></span>
+          <span>
+            <button class="icon" @click="onHideModal">取消</button>
+            <button class="icon primary" @click="onSaveCollection">保存</button>
+          </span>
+        </div>
+      </div>
+    </template>
   </SmartModal>
 </template>
 <script>
@@ -51,7 +57,7 @@ export default {
     let name = ref("");
     
     const onSaveCollection = () => {
-      if (name.value) {
+      if (!name.value) {
         // to do toast
         return;
       }
@@ -61,7 +67,7 @@ export default {
       };
       store.commit("postwoman/editCollection", {
         collection: collectionUpdated,
-        collectionIdex: props.editingCollectionIndex,
+        collectionIndex: props.editingCollectionIndex,
         flag: 'rest',
       });
       context.emit("hide-modal");

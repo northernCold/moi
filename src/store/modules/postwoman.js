@@ -267,7 +267,7 @@ export const mutations = {
 
     let parentFolder = findFolder(folderName, collection, true)
     if (parentFolder && parentFolder.folders) {
-      Vue.set(parentFolder.folders, folderIndex, folder)
+      parentFolder.folders[folderIndex] = folder;
     }
   },
 

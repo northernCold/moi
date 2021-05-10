@@ -38,7 +38,7 @@
               @click="editFolder({ folder, folderIndex, collectionIndex })"
               v-close-popper
             >
-              <svg-icon icon-class="edit"></svg-icon>
+              <svg-icon icon-class="create"></svg-icon>
               <span>编辑</span>
             </button>
           </div>

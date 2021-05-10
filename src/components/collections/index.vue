@@ -217,7 +217,7 @@ export default {
     const displayModalEditRequest = shouldDisplay => {
       showModalEditRequest.value = shouldDisplay;
     }
-    const editColleciton = (collection, collectionIndex) => {
+    const editCollection = (collection, collectionIndex) => {
       editingCollection.value = collection;
       editingCollectionIndex.value = collectionIndex;
       displayModalEdit(true);
@@ -238,12 +238,11 @@ export default {
       displayModalAddFolder(true)
     };
     const editFolder = payload => {
-      const { collectionIndex, folderIndex, folderName, request, requestIndex } = payload;
-      editingCollectionIndex.value = collectionIndex;
-      editingFolderIndex.value = folderIndex;
-      editingFolderName.value = folderName;
-      editingRequest.value = request;
-      editingRequestIndex.value = requestIndex;
+      const { collectionIndex, folder, folderIndex } = payload;
+      editingCollectionIndex.value = collectionIndex
+      editingFolder.value = folder
+      editingFolderIndex.value = folderIndex
+      displayModalEditFolder(true)
     }
     const editRequest = payload => {
       const { collectionIndex, folderIndex, folderName, request, requestIndex } = payload;
@@ -287,7 +286,7 @@ export default {
       displayModalAddFolder,
       displayModalEditFolder,
       displayModalEditRequest,
-      editColleciton,
+      editCollection,
       onAddFolder,
       addFolder,
       editFolder,

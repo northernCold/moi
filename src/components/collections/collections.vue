@@ -189,8 +189,8 @@ export default {
     const editCollection = () => {
       context.emit("edit-collection");
     }
-    const editFolder = () => {
-      context.emit("edit-folder");
+    const editFolder = data => {
+      context.emit("edit-folder", data);
     }
     const editRequest = () => {
       context.emit("edit-request");

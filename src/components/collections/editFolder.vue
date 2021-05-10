@@ -1,34 +1,40 @@
 <template>
   <SmartModal v-if="show" @close="show = false">
-    <div slot="header">
-      <div class="row-wrapper">
-        <h3 class="title">编辑文件夹</h3>
-        <div>
-          <button class="icon" @click="onHideModal">
-            <svg-icon icon-class="close"></svg-icon>
-          </button>
+    <template #header>
+      <div>
+        <div class="row-wrapper">
+          <h3 class="title">编辑文件夹</h3>
+          <div>
+            <button class="icon" @click="onHideModal">
+              <svg-icon icon-class="close"></svg-icon>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div slot="body" class="flex flex-col">
-      <label for="selectLabel">名称</label>
-      <input
-        type="text"
-        id="selectLabel"
-        v-model="name"
-        :placeholder="folder.name"
-        @keyup.enter="onEditFolder"
-      />
-    </div>
-    <div slot="footer">
-      <div class="row-wrapper">
-        <span></span>
-        <span>
-          <button class="icon" @click="onHideModal">取消</button>
-          <button class="icon primary" @click="onEditFolder">保存</button>
-        </span>
+    </template>
+    <template #body>
+      <div class="flex flex-col">
+        <label for="selectLabel">名称</label>
+        <input
+          type="text"
+          id="selectLabel"
+          v-model="name"
+          :placeholder="folder.name"
+          @keyup.enter="onEditFolder"
+        />
       </div>
-    </div>
+    </template>
+    <template #footer>
+      <div>
+        <div class="row-wrapper">
+          <span></span>
+          <span>
+            <button class="icon" @click="onHideModal">取消</button>
+            <button class="icon primary" @click="onEditFolder">保存</button>
+          </span>
+        </div>
+      </div>
+    </template>
   </SmartModal>
 </template>
 <script>
@@ -56,8 +62,10 @@ export default {
         collectionIndex: props.collectionIndex,
         folder: { ...props.folder, name: name.value },
         folderIndex: props.folderIndex,
-        folderName: props.folder.name
+        folderName: props.folder.name,
+        flag: "rest",
       });
+      onHideModal()
     }
     const onHideModal = () => {
       context.emit("hide-modal");
